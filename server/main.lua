@@ -49,5 +49,11 @@ AddEventHandler('weaponDamageEvent', function(_, data)
     return;
   end
 
-  TriggerClientEvent('a_oneshot_sync::Suicide', NetworkGetEntityOwner(ped));
+  local netOwner = NetworkGetEntityOwner(ped);
+
+  if not netOwner or GetPlayerInvincible(netOwner) then
+    return;
+  end
+
+  TriggerClientEvent('a_oneshot_sync::Suicide', netOwner);
 end);

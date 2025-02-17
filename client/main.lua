@@ -6,7 +6,6 @@ if CHECK_TYPE == 'server' then
   return;
 end
 
-
 AddEventHandler('gameEventTriggered', function(event, args)
   print(args[6]);
 
@@ -17,6 +16,10 @@ AddEventHandler('gameEventTriggered', function(event, args)
   local victim = args[1];
 
   if not victim or victim == 0 or not IsEntityAPed(victim) or IsEntityDead(victim) or PlayerPedId() ~= victim then
+    return;
+  end
+
+  if GetPlayerInvincible(PlayerId()) then
     return;
   end
 
@@ -32,5 +35,5 @@ AddEventHandler('gameEventTriggered', function(event, args)
     return;
   end
 
-  ApplyDamageToPed(victim, GetEntityMaxHealth(victim), false);
+  ApplyDamageToPed(victim, GetEntityHealth(victim), false);
 end);
